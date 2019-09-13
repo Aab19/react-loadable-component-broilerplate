@@ -1,5 +1,5 @@
 {
-  "name": "react-loadable-broilerplate",
+  "name": "react-loadable-component-broilerplate",
   "version": "1.0.0",
   "description": "broilerplate react js with express js use loadable-componente to split component and redux",
   "main": "index.js",

@@ -12,6 +12,7 @@ function renderHtml(body = "", styleTags, preloadedState = {}, global = {}, css)
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
       </head>
       <body>
         <div id="app">${body}</div>
