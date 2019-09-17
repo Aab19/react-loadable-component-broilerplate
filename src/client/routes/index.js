@@ -1,8 +1,8 @@
 import RootLayout from "../layout/Root"
 
 // components
-import Home from "../container/home/index"
-import NotFound from "../container/error/404"
+import Home from "../containers/home/index"
+import NotFound from "../containers/error/404"
 
 export default [
   {

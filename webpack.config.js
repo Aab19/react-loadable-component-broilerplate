@@ -1,4 +1,5 @@
 const webpack = require("webpack")
+const LoadablePlugin = require('@loadable/webpack-plugin')
 const Path = require("path")
 const AssetsPlugin = require("assets-webpack-plugin")
 const BUILD_DIR = "./assets/build/"
@@ -42,7 +43,8 @@ module.exports = {
     new AssetsPlugin({
       prettyPrint: true,
       path: Path.join(__dirname, "./src/config")
-    })
+    }),
+    new LoadablePlugin()
   ],
   module: {
     rules: [
