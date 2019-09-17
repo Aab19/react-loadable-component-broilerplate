@@ -7,6 +7,8 @@ Bundling is great, but as your app grows, your bundle will grow too. Especially 
 
 To avoid winding up with a large bundle, it’s good to get ahead of the problem and start “splitting” your bundle. Code-Splitting is a feature supported by bundlers like Webpack and Browserify (via factor-bundle) which can create multiple bundles that can be dynamically loaded at runtime.
 
+* [Spliting code with loadable-components](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md), recomended by react
+
 <div style="text-align:center">
 <img src="https://pbs.twimg.com/media/DL56FSWVoAA-BUA.jpg:large" />
 </div>
@@ -27,10 +29,6 @@ Isomporphic applications can run both on clients such as web browsers and on ser
 * [NodeJS](https://nodejs.org/en/download/) 
 * NPM (should be bundled with NodeJS)
 * [Yarn (recommended to replace NPM,optional)](https://yarnpkg.com), all yarn commands below can be changed using npm
-
-### Code of conduct 
-* Code gear : http://internalgit.ojodowo.com/sebangsaweb/web-boilerplate/blob/master/docs/code%20gear.md 
-* Things to learn : http://internalgit.ojodowo.com/sebangsaweb/web-boilerplate/blob/master/docs/things%20to%20learn.md
 
 ### Clone 
 
@@ -57,10 +55,6 @@ Run client build
 ```
 yarn webpack
 ```
-
-### Documentations 
-- JsDocs : https://devdocs.io/jsdoc-tags/
-- Api : http://internalgit.ojodowo.com/API0/cermin-api/wikis/home
 
 ### Open in browser
 Visit [http://localhost:3001](http://localhost:3001), or whichever port specified in your configuration file (`.env`).
