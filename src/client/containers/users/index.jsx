@@ -3,6 +3,13 @@ import { connect } from "react-redux"
 import { getUser } from "../../../store/user/actions"
 
 class Users extends Component {
+  static fetchData(store, params, query) {
+    return store.dispatch(
+      getUser({
+        filter: "list-user"
+      })
+    )
+  }
   componentDidMount() {
     if (!this.props.users["list-user"]) {
       this.props.dispatch(

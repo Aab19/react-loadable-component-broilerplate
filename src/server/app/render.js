@@ -1,12 +1,13 @@
 import React from "react"
 import webpackAssets from "../../config/webpack-assets"
 import { StaticRouter } from "react-router-dom"
-import { renderRoutes } from "react-router-config"
+import { renderRoutes, matchRoutes } from "react-router-config"
 import ReactDOMServer from "react-dom/server"
 import routes from "../../client/routes/index"
 import path from "path"
 import { Provider } from "react-redux"
-import store from "../../config/store"
+import { Reducers, Middlewares } from "../../config/store"
+import { createStore } from "redux"
 
 // config serverside rendering loadable components
 import { ChunkExtractor } from "@loadable/server"
@@ -15,30 +16,46 @@ const statsFile = path.resolve("assets/build/loadable-stats.json")
 const extractor = new ChunkExtractor({ statsFile })
 
 export default function handleRender(req, res, next) {
-  const context = {}
-  const jsx = extractor.collectChunks(
-    <StaticRouter location={req.url} context={context}>
-      <Provider store={store}>{renderRoutes(routes)}</Provider>
-    </StaticRouter>
-  )
+  let html,
+    store = createStore(Reducers, Middlewares),
+    context = {}
 
-  const markup = ReactDOMServer.renderToString(jsx)
-  if (context.url) {
-    // Somewhere a `<Redirect>` was rendered
-    redirect(301, context.url)
-  } else {
-    // we're good, send the response
-    res.end(renderHtml(markup))
-  }
+  // dettect static function fetchData in container target
+  const promises = matchRoutes(routes, req.url).map(({ route, match }) => {
+    let fetchData = route.component.fetchData
+    return fetchData instanceof Function
+      ? fetchData(store, match.params, match.query)
+      : Promise.resolve()
+  })
+
+  // generate component from data
+  return Promise.all(promises).then(() => {
+    let preloadedState = store.getState()
+    const jsx = extractor.collectChunks(
+      <StaticRouter location={req.url} context={context}>
+        <Provider store={store}>{renderRoutes(routes)}</Provider>
+      </StaticRouter>
+    )
+
+    html = ReactDOMServer.renderToString(jsx)
+    if (context.url) {
+      // Somewhere a `<Redirect>` was rendered
+      redirect(301, context.url)
+    } else {
+      // we're good, send the response
+      res.end(renderHtml(html, preloadedState))
+    }
+  })
 }
 
 function renderHtml(
   body = "",
-  styleTags,
   preloadedState = {},
+  styleTags,
   global = {},
   css
 ) {
+  console.log("hai",preloadedState)
   return `
     <!DOCTYPE HTML>
     <html>
@@ -47,6 +64,10 @@ function renderHtml(
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <link rel="stylesheet" href="/assets/css/style.css" />
+        <script>
+          window.__data__ = ${JSON.stringify(preloadedState)};
+          window.__global__ = ${JSON.stringify(global)};
+        </script>
       </head>
       <body>
         <div id="app">${body}</div>

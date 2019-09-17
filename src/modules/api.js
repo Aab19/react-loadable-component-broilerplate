@@ -15,6 +15,7 @@ export function request(method, endpoint, params) {
       .set("Content-key", Seal.generateSeal())
       .send(formdata)
       .on("error", err => {
+        console.log(err)
         return resolve(httpException(500, err, true))
       })
       .end((err, res) => {
