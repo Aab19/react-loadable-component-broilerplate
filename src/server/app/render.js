@@ -5,6 +5,8 @@ import { renderRoutes } from "react-router-config"
 import ReactDOMServer from "react-dom/server"
 import routes from "../../client/routes/index"
 import path from "path"
+import { Provider } from "react-redux"
+import store from "../../config/store"
 
 // config serverside rendering loadable components
 import { ChunkExtractor } from "@loadable/server"
@@ -16,10 +18,10 @@ export default function handleRender(req, res, next) {
   const context = {}
   const jsx = extractor.collectChunks(
     <StaticRouter location={req.url} context={context}>
-      {renderRoutes(routes)}
+      <Provider store={store}>{renderRoutes(routes)}</Provider>
     </StaticRouter>
   )
-  
+
   const markup = ReactDOMServer.renderToString(jsx)
   if (context.url) {
     // Somewhere a `<Redirect>` was rendered

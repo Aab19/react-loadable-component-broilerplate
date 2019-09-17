@@ -8,6 +8,7 @@ class RootLayout extends Component {
       <div className="main">
         <nav>
           <Link to="/">Home</Link>
+          <Link to="/users">Users</Link>
           <Link to="/about">About</Link>
         </nav>
         <div className="container">{renderRoutes(this.props.route.routes)}</div>

@@ -6,6 +6,7 @@ import render from "./render"
 import session from "cookie-session"
 import cookieParser from "cookie-parser"
 import { notFound } from "./middlewares/error"
+import api from "./api"
 
 const app = express()
 let staticOptions = {}
@@ -40,6 +41,7 @@ app.use(
   express.static(path.resolve(`${__dirname}/../../../assets`), staticOptions),
   notFound
 )
+app.use("/api", api)
 app.use("/", render)
 
 export default app
