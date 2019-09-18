@@ -7,7 +7,7 @@ Bundling is great, but as your app grows, your bundle will grow too. Especially 
 
 To avoid winding up with a large bundle, it’s good to get ahead of the problem and start “splitting” your bundle. Code-Splitting is a feature supported by bundlers like Webpack and Browserify (via factor-bundle) which can create multiple bundles that can be dynamically loaded at runtime.
 
-* [Spliting code with loadable-components](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md), recomended by react
+* [Spliting code with loadable-components smooth-code](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md), recomended by react
 
 <div style="text-align:center">
 <img src="https://pbs.twimg.com/media/DL56FSWVoAA-BUA.jpg:large" />

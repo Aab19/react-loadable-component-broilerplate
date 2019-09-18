@@ -55,7 +55,6 @@ function renderHtml(
   global = {},
   css
 ) {
-  console.log("hai",preloadedState)
   return `
     <!DOCTYPE HTML>
     <html>

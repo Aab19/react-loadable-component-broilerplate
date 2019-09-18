@@ -4,9 +4,6 @@ import loadable from "@loadable/component"
 // components
 import Home from "../containers/home/index"
 import NotFound from "../containers/error/404"
-
-// import component with loadable
-//const Users = loadable(() => import("../containers/users/index"))
 import Users from "../containers/users/index"
 
 export default [
